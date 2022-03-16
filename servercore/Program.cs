@@ -4,6 +4,10 @@ using System.Linq;
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
+    //메모리 베리어
+    //1. 코드 재배치 억제
+    //2. 가시성
+
     public class Program
     {
         static int x = 0;
@@ -14,12 +18,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
         static void Thread_1()
         {
             y = 1;
+            Thread.MemoryBarrier();
             r1 = x;
         }
 
         static void Thread_2()
         {
             x = 1;
+            Thread.MemoryBarrier();
             r2 = y;
         }
 
